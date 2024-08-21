@@ -1,0 +1,62 @@
+# Cloud Run Deployment Configuration
+application:
+  name: ${name}
+  runtime: ${runtime}
+  entrypoint: ${entrypoint}  # Example: app.py for Python, index.js for Node.js, etc.
+  memory: ${memory}          # e.g., 512Mi
+  cpu: ${cpu}                # e.g., 1
+  image: ${image}            # URL to the Docker image in Artifact Registry
+
+deployment:
+  region: ${region}          # e.g., us-central1
+  traffic_split:
+    - latest_revision: true
+      percent: 100
+      revision_name: "v1-0-0"
+      tag: null
+  service_labels:
+    ${service_labels}
+  service_annotations:
+    ${service_annotations}
+
+template:
+  container_concurrency: ${container_concurrency}  # e.g., 80
+  timeout_seconds: ${timeout_seconds}                # e.g., 120
+  service_account_email: ${service_account_email}
+  volumes:
+    ${volumes}
+  limits:
+    cpu: ${cpu_limit}           # e.g., 1000m
+    memory: ${memory_limit}     # e.g., 512Mi
+  requests:
+    cpu: ${cpu_request}         # e.g., 500m
+    memory: ${memory_request}   # e.g., 256Mi
+  ports:
+    name: ${port_name}          # e.g., http1
+    port: ${port_number}        # e.g., 8080
+  argument: ${argument}
+  container_command: ${container_command}
+  startup_probe:
+    ${startup_probe}
+  liveness_probe:
+    ${liveness_probe}
+  env_vars:
+    ${env_vars}
+  env_secret_vars:
+    ${env_secret_vars}
+  volume_mounts:
+    ${volume_mounts}
+
+domain_mapping:
+  verified_domain_name:
+    ${verified_domain_name}
+  force_override: ${force_override}
+  certificate_mode: ${certificate_mode}
+  domain_map_labels:
+    ${domain_map_labels}
+  domain_map_annotations:
+    ${domain_map_annotations}
+
+iam:
+  members:
+    ${members}
