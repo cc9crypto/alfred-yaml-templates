@@ -1,62 +1,78 @@
-# Cloud Run Deployment Configuration
-application:
-  name: ${name}
-  runtime: ${runtime}
-  entrypoint: ${entrypoint}  # Example: app.py for Python, index.js for Node.js, etc.
-  memory: ${memory}          # e.g., 512Mi
-  cpu: ${cpu}                # e.g., 1
-  image: ${image}            # URL to the Docker image in Artifact Registry
+# Project Configuration
+project_id: ""
+service_name: ""
+location: ""
+image: ""
 
-deployment:
-  region: ${region}          # e.g., us-central1
-  traffic_split:
-    - latest_revision: true
-      percent: 100
-      revision_name: "v1-0-0"
-      tag: null
-  service_labels:
-    ${service_labels}
-  service_annotations:
-    ${service_annotations}
+# Revision Naming
+generate_revision_name: true
 
-template:
-  container_concurrency: ${container_concurrency}  # e.g., 80
-  timeout_seconds: ${timeout_seconds}                # e.g., 120
-  service_account_email: ${service_account_email}
-  volumes:
-    ${volumes}
-  limits:
-    cpu: ${cpu_limit}           # e.g., 1000m
-    memory: ${memory_limit}     # e.g., 512Mi
-  requests:
-    cpu: ${cpu_request}         # e.g., 500m
-    memory: ${memory_request}   # e.g., 256Mi
-  ports:
-    name: ${port_name}          # e.g., http1
-    port: ${port_number}        # e.g., 8080
-  argument: ${argument}
-  container_command: ${container_command}
-  startup_probe:
-    ${startup_probe}
-  liveness_probe:
-    ${liveness_probe}
-  env_vars:
-    ${env_vars}
-  env_secret_vars:
-    ${env_secret_vars}
-  volume_mounts:
-    ${volume_mounts}
+# Traffic Routing
+traffic_split:
+  - latest_revision: true
+    percent: 100
+    revision_name: "v1-0-0"
+    tag: null
 
-domain_mapping:
-  verified_domain_name:
-    ${verified_domain_name}
-  force_override: ${force_override}
-  certificate_mode: ${certificate_mode}
-  domain_map_labels:
-    ${domain_map_labels}
-  domain_map_annotations:
-    ${domain_map_annotations}
+# Service Labels
+service_labels: {}
 
-iam:
-  members:
-    ${members}
+# Service Annotations
+service_annotations:
+  run.googleapis.com/ingress: "all"
+
+# Metadata
+template_labels: {}
+
+template_annotations:
+  run.googleapis.com/client-name: "terraform"
+  generated-by: "terraform"
+  autoscaling.knative.dev/maxScale: "2"
+  autoscaling.knative.dev/minScale: "1"
+
+# Encryption Key
+encryption_key: null
+
+# Template Specification
+container_concurrency: null
+timeout_seconds: 120
+service_account_email: ""
+
+# Volumes
+volumes: []
+
+# Resource Limits and Requests
+limits: null
+requests: {}
+
+# Ports
+ports:
+  name: "http1"
+  port: 8080
+
+# Container Commands
+argument: []
+container_command: []
+
+# Probes
+startup_probe: null
+liveness_probe: null
+
+# Environment Variables
+env_vars: []
+
+# Secret Environment Variables
+env_secret_vars: []
+
+# Volume Mounts
+volume_mounts: []
+
+# Domain Mapping
+verified_domain_name: []
+force_override: false
+certificate_mode: "NONE"
+domain_map_labels: {}
+domain_map_annotations: {}
+
+# IAM Members
+members: []
