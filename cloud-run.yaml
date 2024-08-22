@@ -1,8 +1,8 @@
 # Project Configuration
-project_id: ""
-service_name: ""
-location: ""
-image: ""
+project_id: ${project_id}
+service_name: ${name}
+location: ${region}
+image: ${image name}
 
 # Revision Naming
 generate_revision_name: true
