@@ -1,0 +1,70 @@
+# General Configuration for GCP
+general:
+  project_id: "your-project-id"
+  region: "us-central1"          # Default region for resources
+  zone: "us-central1-a"          # Optional, if needed for specific components
+
+# Configuration for Cloud Run
+cloud_run:
+  service_name: "my-cloud-run-service"
+  image: "gcr.io/your-project-id/your-image:tag"
+  memory: "512Mi"                # Example memory size
+  cpu: "1"                       # Number of CPUs
+  max_instances: 5               # Optional: Maximum number of instances
+  timeout: "300s"                # Optional: Request timeout
+
+# Configuration for Load Balancer
+load_balancer:
+  name: "my-load-balancer"
+  backend_service_name: "my-backend-service"
+  health_check_name: "my-health-check"
+  port: 80
+  target_proxy_name: "my-target-proxy"
+  url_map_name: "my-url-map"
+
+# Configuration for API Gateway
+api_gateway:
+  name: "my-api-gateway"
+  api_config: "path/to/api-config.yaml"
+  stage_name: "prod"
+
+# Configuration for Cloud Pub/Sub
+pubsub:
+  topic_name: "my-topic"
+  subscription_name: "my-subscription"
+  push_endpoint: "https://example.com/push"  # Optional: if using push subscription
+
+
+# Configuration for Cloud Storage
+cloud_storage:
+  bucket_name: "my-storage-bucket"
+  lifecycle_rules:
+    - action: "DELETE"
+      condition:
+        age: 365
+
+# Configuration for IAM Roles and Policies
+iam_roles:
+  - role: "roles/cloudrun.invoker"
+    member: "serviceAccount:my-service-account@my-project.iam.gserviceaccount.com"
+  - role: "roles/storage.admin"
+    member: "serviceAccount:my-service-account@my-project.iam.gserviceaccount.com"
+
+# Configuration for Monitoring and Logging
+monitoring:
+  log_sink_name: "my-log-sink"
+  filter: "resource.type=\"cloud_run_revision\""
+  destination: "bigquery.googleapis.com/projects/my-project/datasets/my_dataset"
+
+# Configuration for VPC Connector
+vpc_connector:
+  name: "my-vpc-connector"
+  region: "us-central1"
+  network: "my-network"
+  ip_cidr_range: "10.8.0.0/28"
+
+# Configuration for Secrets Management
+secrets:
+  - name: "my-secret"
+    secret_version: "latest"
+    project_id: "my-project-id"
