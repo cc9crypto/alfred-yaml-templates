@@ -2,3 +2,4 @@ project_id: ${project_id}
 image_url: ${image_url}
 location: ${location}
 name: ${name}
+tfstate_bucket_name: ${tfstate_bucket_name}
